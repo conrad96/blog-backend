@@ -24,7 +24,7 @@ export const addUser = async (req, res) => {
         res.status(400).json({msg: "User already exists. "});
     }else { //create new user
         const hash = bcrypt.hashSync(password);
-        const newUser = new User({name, email, password: hash});
+        const newUser = new User({name, email, password: hash, blogs: []});
 
         try{
             const save = await newUser.save();

@@ -12,7 +12,8 @@ const blogSchema = new Schema({
         required: true
     },
     user_id: {
-        type: String, 
+        type: mongoose.Types.ObjectId, 
+        ref: "User",
         required: true
     }, 
     image: {
