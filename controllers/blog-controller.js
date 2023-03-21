@@ -101,6 +101,23 @@ export const deleteBlog = async (req, res) => {
         }
 
     } catch (error) {
+        return console.error();
+    }
+}
+
+export const getByUserId = async (req, res) => {
+    try {
+        const {id} = req.params;
+
+        const fetchBlogs = await User.findById(id).populate('blogs');
+
+        if(!fetchBlogs) {
+            return res.status(404).json({msg: "No Blogs found"});
+        }
+
+        res.status(200).json({blogs: fetchBlogs});
+        
+    } catch (error) {
         res.status(500).json({msg: error});
     }
 }
