@@ -42,12 +42,44 @@ export const updateBlog = async (req, res) => {
         const blogId = req.params.id;
 
         const updateBlog  = await Blog.findByIdAndUpdate(blogId, {title, description});
-        console.log(updateBlog);
 
         if(updateBlog) {
             res.status(200).json({msg: "Blog updated successfully."});
         }else {
             res.status(500).json({msg: "Blog not updated."});
+        }
+
+    } catch (error) {
+        return console.error();
+    }
+}
+
+export const getBlog = async (req, res) => {
+    try {
+        const {id} = req.params;
+
+        const record = await Blog.findById(id);
+        
+        if(record) {
+            res.status(200).json({record});
+        }else {
+            res.status(401).json({msg: 'Blog not found.'});
+        }
+    } catch (error) {
+        return console.error();
+    }
+}
+
+export const deleteBlog = async (req, res) => {
+    try {
+        const {id} = req.params;
+
+        const deleteRecord = await Blog.findByIdAndDelete(id);
+
+        if(deleteRecord) {
+            res.status(200).json({msg: "Blog has been deleted."});
+        }else {
+            res.status(500).json({msg: "Blog couldn't deleted."});
         }
 
     } catch (error) {
